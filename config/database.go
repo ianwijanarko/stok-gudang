@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fmt"
+	"log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -9,13 +9,16 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDatabase() {
-	dsn := "root:@tcp(127.0.0.1:3306)/stok_gudang?charset=utf8mb4&parseTime=True&loc=Local"
-	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+// ConnectDatabase - Inisialisasi koneksi database
+func ConnectDatabase() (*gorm.DB, error) {
+	// Ubah sesuai dengan konfigurasi MySQL Anda
+	dsn := "root:password@tcp(127.0.0.1:3306)/stok_gudang?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("Failed to connect to database!")
+		return nil, err
 	}
 
-	DB = database
-	fmt.Println("Database connected!")
+	DB = db
+	log.Println("Berhasil terhubung ke database!")
+	return db, nil
 }

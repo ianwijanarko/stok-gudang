@@ -39,5 +39,7 @@ func SetupRoutes() *gin.Engine {
 	r.POST("/log_keluar", middleware.AuthMiddleware(), controllers.LogBarangKeluar)
 	r.GET("/log_keluar", middleware.AuthMiddleware(), controllers.GetLogBarangKeluar)
 
+	r.GET("/stok", middleware.AuthMiddleware(), controllers.ShowStok)
+
 	return r
 }
